@@ -8,7 +8,7 @@ var headers = {
 
 //Step 2 - Configure the request
 var options = {
-    url     : 'http://api.football-data.org/v2/competitions?id=2021',
+    url     : 'http://api.football-data.org/v2/competitions/2017/matches/?dateFrom=2017-08-19&dateTo=2018-08-19',
     method  : 'GET',
     jar     : true,
     headers : headers
