@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="css/main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div class="oz-body-wrap">
@@ -72,7 +73,7 @@
 					            <div class="card-header">
 					              <i class="fas fa-tshirt"></i> Equipo local</div>
 					            <div class="card-body">
-					             <select class="form-control" id="slc-Liga"  placeholder="local" required autofocus>
+					             <select class="form-control" id="slc-local"  placeholder="local" required autofocus>
 				              		 <option selected>Seleccione equipo...</option>
 						            
 						          </select>
@@ -87,7 +88,7 @@
 					            <div class="card-header">
 					              <i class="fas fa-tshirt"></i> Equipo visitante </div>
 					            <div class="card-body">
-					             <select class="form-control" id="slc-Liga"  placeholder="visita" required autofocus>
+					             <select class="form-control" id="slc-visitante"  placeholder="visita" required autofocus>
 				              		 <option selected>Seleccione equipo...</option>
 						          </select>
 					            </div>
@@ -110,6 +111,7 @@
 					          <div class="card mb-3">
 					            <div class="card-header">
 					              <i class="fas fa-info-circle"></i> Datos</div>
+					              
 					            <div class="card-body">
 					             
 					            </div>
@@ -132,9 +134,7 @@
 			<!-- Fin Area De Trabajo -->
 			
 		</div>
-		<script src="js/jquery-2.2.4.min.js"></script>
-		<script src="js/main.js"></script>
-		
+		<script src="js/controlador.js"></script>
 	</body>
 </html>
 
