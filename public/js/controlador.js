@@ -13,6 +13,27 @@ $(document).ready(function () {
 	 	cargarEquipos();
     	
   });
+
+	$('#slc-visitante').unbind('change').bind('change', function (e){
+	 	if($('#slc-local').val()!='Seleccione equipo...' && $('#slc-visitante').val()!='Seleccione equipo...'){
+	 		$( '#btnSimular' ).prop( "disabled", false );
+	 	}else{
+	 		$( '#btnSimular' ).prop( "disabled", true );
+	 	}
+    	
+ 	 });
+	$('#slc-local').unbind('change').bind('change', function (e){
+	 	if($('#slc-local').val()!='Seleccione equipo...' && $('#slc-visitante').val()!='Seleccione equipo...'){
+	 		$( '#btnSimular' ).prop( "disabled", false );
+	 	}else{
+	 		$( '#btnSimular' ).prop( "disabled", true );
+	 	}
+    	
+ 	 });
+
+
+
+	 
 	
 });
 
@@ -43,12 +64,17 @@ $(document).ready(function () {
 	 }
 
 $('#btnSimular').click(function(){
+		$('#progress').removeAttr('value');
+		$('#progress').removeAttr('max');
+		$('#huno').html('Simulando...');
 	 	$('#divbotones').show();
 	 	$('#divboton').hide();
 	 	$('#divlocal').removeClass('col-lg-5');
 	 	$('#divlocal').addClass('col-lg-6');
 	 	$('#divvisitante').removeClass('col-lg-5');
 	 	$('#divvisitante').addClass('col-lg-6');
+	 	var altura = $(document).height();
+      	$("html, body").animate({scrollTop:altura+"px"},1000);
 
 	 	var id=$('#slc-Liga').val();
 	 	$.ajax({
@@ -57,6 +83,7 @@ $('#btnSimular').click(function(){
 		data:'id='+id,
 		dataType:'json',
 		success:function (respuesta) {
+
 			var numeropartidos = respuesta.count;
 			var matches=respuesta.matches;
 
@@ -114,13 +141,7 @@ $('#btnSimular').click(function(){
 			$('#golesvisita').val(golesequipovisita);
 			$('#encajadoslocal').val(encajadoslocal);
 			$('#encajadosvisita').val(encajadosvisita);
-			
 
-
-
-
-
-			console.log(matches);
 			modelo();
 
 		},
@@ -132,7 +153,7 @@ $('#btnSimular').click(function(){
 	 });
 
 	$('#btnSimular2').click(function(){
-	 	
+		modelo();	
 	 });
 
 	$('#btnReiniciar').click(function(){
@@ -146,6 +167,20 @@ $('#btnSimular').click(function(){
 	 	$('#divlocal').addClass('col-lg-5');
 	 	$('#divvisitante').removeClass('col-lg-6');
 	 	$('#divvisitante').addClass('col-lg-5');
+	 	$( '#btnSimular' ).prop( "disabled", true );
+	 	$('#partidosliga').val('');
+		$('#golesligacasa').val('');
+		$('#golesligavisita').val('');
+		$('#partidoslocal').val('');
+		$('#partidosvisita').val('');
+		$('#goleslocal').val('');
+		$('#golesvisita').val('');
+		$('#encajadoslocal').val('');
+		$('#encajadosvisita').val('');
+		$('#progress').attr('value',50);
+		$('#progress').attr('max',100);
+		$('#huno').html('');
+		$("html, body").animate({scrollTop:"0px"},1000);
 	 	cargarEquipos();
 	 });
 
@@ -225,9 +260,11 @@ for (var n = 0; n <= 5; n++) {
 		MarcadorVisitante=n;
 	}
 }
+var suma=(MarcadorLocal+MarcadorVisitante);
 
-
-
+$('#progress').attr('value',MarcadorLocal);
+$('#progress').attr('max',suma);
+$('#huno').html(MarcadorLocal+'-'+MarcadorVisitante);
 console.log("Equipo local: "+MarcadorLocal+" Equipo visitante: "+MarcadorVisitante);
 
 }
