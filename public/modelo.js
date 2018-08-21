@@ -1,19 +1,19 @@
 //Variables por liga
-var PartidosTemporada=380; //Numero de partidos en la temporada
-var GolesCasaLiga = 557; //Numero total de goles marcados en casa en la liga
-var GolesVisitaLiga= 459; //Numero total de goles maracados como visitante en la liga
+var PartidosTemporada=$('#partidosliga').val(numeropartidos); //Numero de partidos en la temporada
+var GolesCasaLiga = $('#golesligacasa').val(golescasa); //Numero total de goles marcados en casa en la liga
+var GolesVisitaLiga= $('#golesligavisita').val(golesvisita); //Numero total de goles maracados como visitante en la liga
 var MediaGolesCasa=(GolesCasaLiga/PartidosTemporada); //Media de goles marcados en casa
 var MediaGolesVisita=(GolesVisitaLiga/PartidosTemporada); //Media de goles marcados fuera de casa
 
 //Variables equipo local
-var PartidosLocal=19; //Numero total de partidos jugados en casa 
-var GolesEquipoLocal=35; //Numero de goles anotados por el aquipo local en casa
+var PartidosLocal=$('#partidoslocal').val(partidoslocal); //Numero total de partidos jugados en casa 
+var GolesEquipoLocal=$('#goleslocal').val(golesequipolocal); //Numero de goles anotados por el aquipo local en casa
 var EncajadosEquipoLocal=15; //Numero de goles encajados por el equipo local en casa
 var FuerzaAtacanteLocal=(GolesEquipoLocal/PartidosLocal)/MediaGolesCasa; //Fuerza atacante del quipo local
 var FuerzaDefensivaLocal=(EncajadosEquipoLocal/PartidosLocal)/MediaGolesVisita; //Fuerza defensiva del quipo local
 
 //Variables equipo visitante
-var PartidosVisitante=19; //Numero de partidos jugados fuera de casa 
+var PartidosVisitante=$('#partidosvisita').val(partidosvisita); //Numero de partidos jugados fuera de casa 
 var GolesEquipoVisitante=24; //Numero de goles anotados por el quipo visitante fuera de casa
 var EncajadosEquipoVisitante=25; //Numero de goles encajados por el quipo visitante fuera de casa
 var FuerzaAtacanteVisitante=(GolesEquipoVisitante/PartidosVisitante)/MediaGolesVisita; //Fuerza atacante del quipo visitante
