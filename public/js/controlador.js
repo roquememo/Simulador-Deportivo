@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	cargarHistorial();
 	$('#divbotones').hide();
 	//menu 
 	$(".menu-bar").on('click', function(e){
@@ -39,6 +40,33 @@ $(document).ready(function () {
 
 
 
+function cargarHistorial() {
+
+	$.ajax({
+		url:'/obtenerhistorial',
+		method:'GET',
+		dataType:"json",
+		success:function (respuesta) {
+			$("#tabla_historial").html('');
+			for (var i = 0; i < respuesta.length; i++) {
+				$("#tabla_historial").append('<tr>'+
+                  '<td>'+i+'</td>'+
+                  '<td>'+respuesta[i].fecha+'</td>'+
+                  '<td>'+respuesta[i].liga+'</td>'+
+                  '<td>'+respuesta[i].equipo_local+'</td>'+
+				  '<td>'+respuesta[i].equipo_visitante+'</td>'+
+                  '<td>'+respuesta[i].resultado+'</td>'+
+               	'</tr>');
+			}
+		},
+		error:function (error) {
+			alert('Error al cargar historial');
+		}
+	});
+}
+
+
+
 	 function cargarEquipos() {
 	 	var id=$('#slc-Liga').val();
 	 	$.ajax({
@@ -63,6 +91,26 @@ $(document).ready(function () {
 	});
 	 }
 
+$('#btnguardar').click(function () {
+	var liga=$('select[id="slc-Liga"] option:selected').text();
+	var local=$('select[id="slc-local"] option:selected').text();
+	var visita=$('select[id="slc-visitante"] option:selected').text();
+	var resultado=$('#huno').text();
+	$.ajax({
+		url:'/guardar',
+		method:'GET',
+		data:'liga='+liga+'&local='+local+'&visita='+visita+'&resultado='+resultado,
+		dataType:'json',
+		success:function (respuesta) {
+			alert('Resultado guardado');
+			$( '#btnguardar' ).prop( "disabled", true );
+		},
+		error:function (error) {
+			alert('Error al Guardar resultado');
+		}
+	});
+});
+
 $('#btnSimular').click(function(){
 		$('#progress').removeAttr('value');
 		$('#progress').removeAttr('max');
@@ -73,6 +121,7 @@ $('#btnSimular').click(function(){
 	 	$('#divlocal').addClass('col-lg-6');
 	 	$('#divvisitante').removeClass('col-lg-5');
 	 	$('#divvisitante').addClass('col-lg-6');
+	 	$( '#btnguardar' ).prop( "disabled", false );
 	 	var altura = $(document).height();
       	$("html, body").animate({scrollTop:altura+"px"},1000);
 
@@ -153,8 +202,10 @@ $('#btnSimular').click(function(){
 	 });
 
 	$('#btnSimular2').click(function(){
-		modelo();	
+		modelo();
+		$( '#btnguardar' ).prop( "disabled", false );
 	 });
+
 
 	$('#btnReiniciar').click(function(){
 	 	$('#divbotones').hide();

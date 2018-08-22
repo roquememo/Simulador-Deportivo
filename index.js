@@ -1,6 +1,16 @@
 var express= require("express");
 var request = require('request'); //Necesario para realizar peticiones al API     
 var app=express();
+var mysql = require('mysql');
+
+
+var credenciales = {
+    user:"root",
+    password:"conejomemo1",
+    host:"localhost",
+    database:"simulador",
+    port:"3306"
+};
 /*
 	Obteniendo Datos del API
 */
@@ -68,7 +78,38 @@ app.get("/obtenerEquipos",function (peticion,respuesta) {
 		}
 			
 	});
+
+
 		
+});
+
+
+
+	app.get("/guardar",function (peticion,respuesta) {
+	var conexion = mysql.createConnection(credenciales);
+	var liga=peticion.query.id;
+	var f=new Date();
+	var mes=0;
+	if((f.getMonth()+1)<10){
+		mes='0'+(f.getMonth()+1);
+	}
+	var fecha=f.getFullYear()+'-'+mes+'-'+f.getDate();
+	conexion.query('INSERT INTO historial (fecha, liga, equipo_local, equipo_visitante, resultado)'+
+					'VALUES (?,?,?,?,?);',
+					[fecha,peticion.query.liga,peticion.query.local,peticion.query.visita,peticion.query.resultado],
+		function(error, resultado){
+			conexion.end();
+			respuesta.send(resultado);
+	});
+});
+
+app.get("/obtenerhistorial",function (peticion,respuesta) {
+	var conexion = mysql.createConnection(credenciales);
+	conexion.query("SELECT * FROM historial LIMIT 50",
+		function(error, informacion, campos){
+			conexion.end();
+			respuesta.send(informacion);
+	});
 });
 
 
